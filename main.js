@@ -23,9 +23,9 @@ const button = document.querySelector("button");
 
 //result variables
 
-const dayResult=document.getElementById('days');
-const monthResult=document.getElementById('months');
-const yearResult=document.getElementById('years');
+const dayResult = document.getElementById("days");
+const monthResult = document.getElementById("months");
+const yearResult = document.getElementById("years");
 
 // error variables
 
@@ -38,7 +38,7 @@ const errorBorder = `1px solid ${errorColor}`;
 
 let currentDate = new Date();
 let currentDay = currentDate.getUTCDate();
-let currentMonth = currentDate.getMonth();
+let currentMonth = currentDate.getMonth() + 1;
 let currentYear = currentDate.getFullYear();
 
 // function for error
@@ -51,14 +51,12 @@ function errorStyling(label, inputBorder) {
 //  funtion for checking leap year
 
 function checkLeapYear(year) {
-
-    if (((0 == year % 4) && (0 != year % 100)) || (0 == year % 400)) {
-        return true;
-    } else {
-        return false;
-    }
+  if ((0 == year % 4 && 0 != year % 100) || 0 == year % 400) {
+    return true;
+  } else {
+    return false;
+  }
 }
-
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -66,36 +64,30 @@ form.addEventListener("submit", (e) => {
   let monthBorn = "";
   let yearBorn = "";
 
-  let leapyear=checkLeapYear(yearEl.value);
+  let leapyear = checkLeapYear(yearEl.value);
 
-//   error for day
+  //   error for day
 
   if (dayEl.value == "") {
     dayError.textContent = errorEmptyValue;
     errorStyling(dayLabel, dayEl);
-  }
-  else if(dayEl.value>30 && (monthEl.value==4||6||9||11)){
-    dayError.textContent=`${errorWrongValue} day`;
-    errorStyling(dayLabel,dayEl);
-  }
-  else if(dayEl.value>31){
-    dayError.textContent=`${errorWrongValue} day`;
-    errorStyling(dayLabel,dayEl);
-  }
-  else if (dayEl.value>29 && monthEl.value==2 && leapyear==true) {
-    dayError.textContent=`${errorWrongValue} day`;
-    errorStyling(dayLabel,dayEl);
-  } 
-  else if(dayEl.value>28 && monthEl.value==2 && leapyear==false) {
-    dayError.textContent=`${errorWrongValue} day`;
-    errorStyling(dayLabel,dayEl);
-  }
-  else {
+  } else if (dayEl.value > 30 && (monthEl.value == 4 || 6 || 9 || 11)) {
+    dayError.textContent = `${errorWrongValue} day`;
+    errorStyling(dayLabel, dayEl);
+  } else if (dayEl.value > 31) {
+    dayError.textContent = `${errorWrongValue} date`;
+    errorStyling(dayLabel, dayEl);
+  } else if (dayEl.value > 29 && monthEl.value == 2 && leapyear == true) {
+    dayError.textContent = `${errorWrongValue} date`;
+    errorStyling(dayLabel, dayEl);
+  } else if (dayEl.value > 28 && monthEl.value == 2 && leapyear == false) {
+    dayError.textContent = `${errorWrongValue} date`;
+    errorStyling(dayLabel, dayEl);
+  } else {
     dayBorn = dayEl.value;
-    
   }
 
-//   error for month
+  //   error for month
 
   if (monthEl.value == "") {
     monthError.textContent = errorEmptyValue;
@@ -107,7 +99,7 @@ form.addEventListener("submit", (e) => {
     monthBorn = monthEl.value;
   }
 
-//   error for year
+  //   error for year
 
   if (yearEl.value == "") {
     yearError.textContent = errorEmptyValue;
@@ -119,8 +111,23 @@ form.addEventListener("submit", (e) => {
     yearBorn = yearEl.value;
   }
 
-//   result 
-  if (dayBorn != "" && monthBorn != "" && yearBorn != ""){
-    console.log(dayBorn,monthBorn,yearBorn);
+  //   result
+  if (dayBorn != "" && monthBorn != "" && yearBorn != "") {
+    let M = monthEl.value - currentMonth;
+    let Y = currentYear - Number(yearEl.value);
+    if (M < 0) {
+      M = -1 * M;
+      monthResult.textContent = M;
+      yearResult.textContent = Y;
+    } else {
+      monthResult.textContent = 12 - M;
+      yearResult.textContent = Y - 1;
+    }
+    /* if (currentMonth == 4 || 6 || 8 || 9 || 11) dayResult.textContent = currentDay -dayEl.value;
+    else if (currentMonth == 2 && checkLeapYear(currentYear) == true)
+      dayResult.textContent = currentDay-dayEl.value; 
+    else if (currentMonth == 2 && checkLeapYear(currentYear) == false)
+      dayResult.textContent =currentDay-dayEl.value;
+    else dayResult.textContent = currentDay - dayEl.value; */
   }
 });

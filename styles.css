@@ -61,12 +61,6 @@ input::placeholder{
     font-weight: 600;
     color: var(--SmokeyGrey);
 }
-/* img{
-    background-color: var(--Purple);
-    width: 50%;
-    height: inherit;
-    font-weight: bold;
-} */
 svg{
     width: 40%;
     height: 40%;
@@ -114,14 +108,13 @@ footer{
 
 /*   pseudo classes    */
 
-/* input:active */
 
 input:is(:active,:focus){
     outline: none;
     border-color: var(--Purple);
     caret-color: var(--Purple);
 }
-button:is(:hover,:active,:focus){
+button:is(:hover,:focus){
     background-color: var(--OffBlack);
 }
 @media (hover:none){

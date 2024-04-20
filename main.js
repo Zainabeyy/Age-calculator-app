@@ -113,21 +113,20 @@ form.addEventListener("submit", (e) => {
 
   //   result
   if (dayBorn != "" && monthBorn != "" && yearBorn != "") {
-    let M = monthEl.value - currentMonth;
-    let Y = currentYear - Number(yearEl.value);
-    if (M < 0) {
-      M = -1 * M;
-      monthResult.textContent = M;
-      yearResult.textContent = Y;
-    } else {
-      monthResult.textContent = 12 - M;
-      yearResult.textContent = Y - 1;
-    }
-    /* if (currentMonth == 4 || 6 || 8 || 9 || 11) dayResult.textContent = currentDay -dayEl.value;
-    else if (currentMonth == 2 && checkLeapYear(currentYear) == true)
-      dayResult.textContent = currentDay-dayEl.value; 
-    else if (currentMonth == 2 && checkLeapYear(currentYear) == false)
-      dayResult.textContent =currentDay-dayEl.value;
-    else dayResult.textContent = currentDay - dayEl.value; */
+    let birthDate=`${yearEl.value}-${monthEl.value}-${dayEl.value}`;
+    const birthDateObj = new Date(birthDate);
+    
+  // Calculate the difference in milliseconds
+
+  const timeDiff = currentDate.getTime() - birthDateObj.getTime();
+
+  // Convert milliseconds to years, months, and days
+
+  yearResult.textContent = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
+  let M=timeDiff % (1000 * 60 * 60 * 24 * 365);
+  monthResult.textContent= Math.floor(M / (1000 * 60 * 60 * 24 * 30));
+  M=M % (1000 * 60 * 60 * 24 * 30)-8.64e+8;
+  dayResult.textContent= Math.floor(M / (1000 * 60 * 60 * 24));
+
   }
 });

@@ -125,7 +125,7 @@ form.addEventListener("submit", (e) => {
   yearResult.textContent = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
   let M=timeDiff % (1000 * 60 * 60 * 24 * 365);
   monthResult.textContent= Math.floor(M / (1000 * 60 * 60 * 24 * 30));
-  M=M % (1000 * 60 * 60 * 24 * 30)-8.64e+8;
+  M=M % (1000 * 60 * 60 * 24 * 30);
   dayResult.textContent= Math.floor(M / (1000 * 60 * 60 * 24));
 
   }

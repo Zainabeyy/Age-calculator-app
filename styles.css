@@ -116,6 +116,7 @@ input:is(:active,:focus){
 }
 button:is(:hover,:focus){
     background-color: var(--OffBlack);
+    cursor: pointer;
 }
 @media (hover:none){
     button:is(:active,:focus){

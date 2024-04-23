@@ -113,20 +113,28 @@ form.addEventListener("submit", (e) => {
 
   //   result
   if (dayBorn != "" && monthBorn != "" && yearBorn != "") {
-    let birthDate=`${yearEl.value}-${monthEl.value}-${dayEl.value}`;
-    const birthDateObj = new Date(birthDate);
-    
-  // Calculate the difference in milliseconds
-
-  const timeDiff = currentDate.getTime() - birthDateObj.getTime();
-
-  // Convert milliseconds to years, months, and days
-
-  yearResult.textContent = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
-  let M=timeDiff % (1000 * 60 * 60 * 24 * 365);
-  monthResult.textContent= Math.floor(M / (1000 * 60 * 60 * 24 * 30));
-  M=M % (1000 * 60 * 60 * 24 * 30);
-  dayResult.textContent= Math.floor(M / (1000 * 60 * 60 * 24));
-
+  let Y, M ,D;
+  Y=currentYear-yearEl.value;
+  if(currentMonth>=monthEl.value){
+    M=currentMonth-monthEl.value;
+  }
+  else{
+    Y--;
+    M=12+currentMonth-monthEl.value;
+  }
+  if(currentDay>=dayEl.value){
+    D=currentDay-dayEl.value;
+  }
+  else{
+    M--;
+    D=getDaysInMonth(yearEl.value,monthEl.value)+currentDay-dayEl.value;
+  }
+  yearResult.textContent=Y;
+  monthResult.textContent=M;
+  dayResult.textContent=D;
   }
 });
+
+function getDaysInMonth(year,month){
+  return new Date(year,month,0).getDate;
+};
